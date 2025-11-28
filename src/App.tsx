@@ -9,6 +9,7 @@ import { AccessibilityProvider } from "@/contexts/AccessibilityContext";
 import { fetchClassDetail, OneDayClass } from "@/lib/api";
 
 import Index from "./pages/Index";
+import AllClasses from "@/pages/AllClasses";
 import Auth from "./pages/Auth";
 import ClassDetail from "./pages/ClassDetail";
 import Reservations from "./pages/Reservations"; // 예약 목록 페이지
@@ -44,6 +45,7 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/classes" element={<AllClasses />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/classes/:id" element={<ClassDetail />} />
               

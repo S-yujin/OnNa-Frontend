@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
@@ -33,6 +34,9 @@ const Index = () => {
     useState<"all" | "cooking" | "craft" | "art">("all");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // 라우팅
+  const navigate = useNavigate();
 
   // 접근성 + 시니어 여부
   const { largeText, highContrast } = useAccessibility();
@@ -180,7 +184,6 @@ const Index = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {classes.map((classItem) => (
             <ClassCard key={classItem.id} {...classItem} isLargeMode={isLargeMode} />
-            
           ))}
 
           {!loading && !error && classes.length === 0 && (
@@ -198,6 +201,7 @@ const Index = () => {
               "border-primary text-primary hover:bg-primary hover:text-white transition-all " +
               (isLargeMode ? "text-lg px-8 py-6" : "")
             }
+            onClick={() => navigate("/classes")}   // ➜ 목록 페이지로 이동
           >
             더 많은 클래스 보기
           </Button>

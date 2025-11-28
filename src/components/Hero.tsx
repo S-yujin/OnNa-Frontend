@@ -1,8 +1,28 @@
+// src/components/Hero.tsx
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
 export const Hero = () => {
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/classes?q=${encodeURIComponent(searchQuery)}`);
+    } else {
+      navigate("/classes");
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <section className="relative bg-gradient-soft py-16 md:py-24">
       <div className="container mx-auto px-4">
@@ -30,9 +50,15 @@ export const Hero = () => {
               <Input
                 placeholder="어떤 기술을 배우고 싶으신가요?"
                 className="pl-12 h-14 text-base bg-card border-border"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
             </div>
-            <Button className="h-14 px-8 bg-gradient-warm text-white hover:opacity-90 transition-opacity text-base font-semibold">
+            <Button 
+              onClick={handleSearch}
+              className="h-14 px-8 bg-gradient-warm text-white hover:opacity-90 transition-opacity text-base font-semibold"
+            >
               클래스 찾기
             </Button>
           </div>
