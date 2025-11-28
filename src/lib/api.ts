@@ -13,6 +13,10 @@ export interface OneDayClass {
     capacity: number;
     price: number;
     hostId: number;
+
+    // 👇 UI용 추가 필드 (백엔드에서 안 주면 undefined)
+    currentCount?: number;  // 현재 예약 인원
+    rating?: number;        // 평점
 }
 
 // --- 예약 타입 ---

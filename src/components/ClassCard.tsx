@@ -2,6 +2,7 @@
 import { FC } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 type ClassCardProps = {
   id: string;
@@ -12,10 +13,11 @@ type ClassCardProps = {
   price: number;
   teacherName: string;
   rating: number;
-  isLargeMode?: boolean;   // 🔥 추가
+  isLargeMode?: boolean;
 };
 
 export const ClassCard: FC<ClassCardProps> = ({
+  id,
   title,
   description,
   category,
@@ -25,6 +27,8 @@ export const ClassCard: FC<ClassCardProps> = ({
   rating,
   isLargeMode = false,
 }) => {
+  const navigate = useNavigate();
+
   const titleClass = isLargeMode
     ? "text-xl md:text-2xl font-bold text-foreground"
     : "text-lg font-semibold text-foreground";
@@ -47,12 +51,11 @@ export const ClassCard: FC<ClassCardProps> = ({
 
   return (
     <Card className="overflow-hidden shadow-sm border border-[#f3e0c8] bg-card">
-      {/* 위쪽 썸네일 영역 & 카테고리 뱃지 */}
+      {/* 상단 썸네일 & 카테고리 뱃지 */}
       <div className="relative h-32 bg-gradient-soft">
         <span className="absolute top-3 right-3 px-3 py-1 rounded-full bg-gradient-warm text-white text-xs font-semibold">
           {category}
         </span>
-        {/* 썸네일 자리에 나중에 이미지 넣을 수 있음 */}
       </div>
 
       <CardContent className={isLargeMode ? "p-6" : "p-4"}>
@@ -85,10 +88,10 @@ export const ClassCard: FC<ClassCardProps> = ({
             </span>
           </div>
           <div className="text-right">
-            <div className={priceClass}>
-              {price.toLocaleString()}원
-            </div>
+            <div className={priceClass}>{price.toLocaleString()}원</div>
             <button
+              type="button"
+              onClick={() => navigate(`/classes/${id}`)}
               className={
                 "w-full bg-gradient-warm text-white font-semibold " +
                 "hover:opacity-90 transition-opacity " +
